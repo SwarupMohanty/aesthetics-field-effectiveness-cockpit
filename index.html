@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Field Effectiveness Cockpit: Aesthetics India (candidate prototype)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f1f7;--card:#ffffff;--ink:#24142e;--mute:#6d6078;--line:#e6dfec;--plum:#2b1638;--orchid:#8a4fc4;--rose:#c4567a;--gold:#b98a5e;--teal:#1d8a80;--soft:#f3ecf8;--onplum:#f3e9fa;--onplum2:#c9b6d8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150c1b;--card:#211429;--ink:#f1e8f6;--mute:#ab9bb8;--line:#3a2946;--plum:#2f1a3d;--orchid:#b98bea;--rose:#e58aa8;--gold:#d9ae84;--teal:#55c2b6;--soft:#2a1b34;--onplum:#f3e9fa;--onplum2:#c9b6d8}}
+:root[data-theme="dark"]{--bg:#150c1b;--card:#211429;--ink:#f1e8f6;--mute:#ab9bb8;--line:#3a2946;--plum:#2f1a3d;--orchid:#b98bea;--rose:#e58aa8;--gold:#d9ae84;--teal:#55c2b6;--soft:#2a1b34;--onplum:#f3e9fa;--onplum2:#c9b6d8}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:14.5px;line-height:1.5}
+h1,h2,h3,.disp{font-family:"Marcellus",Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:.005em}
+header{background:var(--plum);color:var(--onplum);padding:22px 24px 0}
+.wrap{max-width:1180px;margin:0 auto}
+header p.kick{margin:0;color:var(--onplum2);font-size:13px}
+header h1{margin:4px 0 6px;font-size:clamp(24px,3.6vw,36px);line-height:1.15}
+header p.sub{margin:0 0 16px;color:var(--onplum2);max-width:70ch}
+nav{display:flex;gap:2px;overflow-x:auto}
+nav button{font:inherit;font-size:13.5px;border:0;background:transparent;color:var(--onplum2);padding:10px 14px;border-radius:10px 10px 0 0;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--bg);color:var(--ink);font-weight:700}
+nav button:focus-visible,input:focus-visible,.seg button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.disc{background:var(--soft);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--mute);padding:8px 24px}
+main{padding:20px 24px 48px}
+.tab{display:none}.tab.on{display:block}
+.lead{font-family:"Marcellus",Georgia,serif;font-size:clamp(21px,2.8vw,29px);line-height:1.25;margin:6px 0 4px;max-width:30ch}
+.lead + p{color:var(--mute);max-width:72ch;margin:0 0 16px}
+.grid{display:grid;gap:14px;margin-bottom:14px}.g2{grid-template-columns:1fr 1fr}.g32{grid-template-columns:3fr 2fr}.g23{grid-template-columns:2fr 3fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:860px){.g2,.g32,.g23,.g3,.g4{grid-template-columns:1fr}main,header,.disc{padding-left:16px;padding-right:16px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
+.card h3{margin:0;font-size:18px;line-height:1.25}
+.card .sub{margin:2px 0 10px;color:var(--mute);font-size:13px}
+.scroll{overflow-x:auto}.scroll>div{min-width:540px}
+.take{margin-top:10px;padding:9px 12px;border-radius:10px;background:var(--soft);font-size:13.5px}
+.take b{color:var(--orchid)}
+svg{display:block;overflow:visible}svg text{font-family:"DM Sans",system-ui,Arial,sans-serif;font-size:11.5px;fill:var(--mute)}svg text.b{fill:var(--ink);font-weight:700}svg text.big{font-family:"Marcellus",Georgia,serif;font-size:20px;fill:var(--ink)}
+[data-tip]{cursor:default}
+#tip{position:fixed;pointer-events:none;background:var(--plum);color:var(--onplum);font-size:12.5px;padding:7px 10px;border-radius:8px;max-width:260px;opacity:0;transition:opacity .1s;z-index:20;border:1px solid var(--line)}
+.rec{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:11px 0;border-bottom:1px solid var(--line)}.rec:last-child{border:0}
+.rec b{font-size:14.5px}.rec .m{grid-column:1;color:var(--mute);font-size:13px}.rec .imp{grid-row:1/span 2;grid-column:2;text-align:right;font-family:"Marcellus",Georgia,serif;font-size:22px;color:var(--teal);white-space:nowrap}
+.rec .imp small{display:block;font-family:"DM Sans",system-ui,sans-serif;font-size:11.5px;color:var(--mute)}
+.rec .bar{grid-column:1/-1;height:5px;border-radius:3px;background:var(--line);overflow:hidden}.rec .bar i{display:block;height:100%;background:var(--teal);border-radius:3px}
+.proof{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden;margin-bottom:14px}
+.proof div{padding:14px 16px;border-right:1px solid var(--line)}.proof div:last-child{border:0}
+.proof .n{font-family:"Marcellus",Georgia,serif;font-size:26px;color:var(--orchid);line-height:1.1}.proof .t{font-size:12.5px;color:var(--mute)}
+@media (max-width:860px){.proof{grid-template-columns:1fr 1fr}.proof div{border-bottom:1px solid var(--line)}}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:8px}
+.seg button{font:inherit;font-size:12.5px;border:0;background:var(--card);color:var(--mute);padding:6px 11px;cursor:pointer}.seg button.on{background:var(--orchid);color:#fff}
+:root[data-theme="dark"] .seg button.on{color:#1a0f22}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button.on{color:#1a0f22}}
+.rings{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
+.rings figure{margin:0;text-align:center}.rings figcaption{font-size:12px;color:var(--mute)}
+.stat{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line)}.stat:last-child{border:0}
+.stat .n{font-family:"Marcellus",Georgia,serif;font-size:24px;min-width:118px;color:var(--orchid)}.stat .t{font-size:13.5px}.stat .t small{display:block;color:var(--mute)}
+.mix{display:flex;height:54px;border-radius:12px;overflow:hidden;margin:6px 0 4px}.mix div{display:flex;flex-direction:column;justify-content:center;padding:0 12px;color:#fff;font-size:12.5px;min-width:0;white-space:nowrap}
+.mix b{font-family:"Marcellus",Georgia,serif;font-size:18px;font-weight:400}
+label.sl{display:block;font-size:13.5px;margin:12px 0 2px}label.sl output{float:right;font-weight:700;color:var(--orchid)}
+input[type=range]{width:100%;accent-color:var(--orchid)}
+.outs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.outs div{background:var(--soft);border-radius:12px;padding:10px 12px}.outs .n{font-family:"Marcellus",Georgia,serif;font-size:24px;line-height:1.1}.outs .t{font-size:12px;color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:13px}th{text-align:left;color:var(--mute);font-weight:500;border-bottom:1px solid var(--line);padding:7px 8px}td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.plan h4{margin:0 0 4px;font-family:"Marcellus",Georgia,serif;font-weight:400;font-size:17px}.plan ul{margin:0;padding-left:18px;font-size:13.5px}.plan li{margin:3px 0}
+.src{font-size:12px;color:var(--mute);margin-top:6px}.src a{color:var(--orchid)}
+.leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--mute);margin-bottom:4px}.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+</style></head><body>
+<header><div class="wrap">
+<p class="kick">Candidate prototype by Swarup Kumar Mohanty, for Sr. Manager Sales Analytics</p>
+<h1>Field effectiveness cockpit, Aesthetics India</h1>
+<p class="sub">How a sales analytics partner would show field leaders where the next rupee of growth sits, territory by territory and injector by injector.</p>
+<nav role="tablist" id="nav"></nav></div></header>
+<div class="disc"><div class="wrap"><b>Illustrative data.</b> Company and market figures on the Market tab are from public sources and linked there. Every India territory, account, call, training and rupee figure elsewhere is invented to demonstrate the approach. This is not AbbVie or Allergan Aesthetics data, and not an AbbVie product.</div></div>
+<main><div class="wrap">
+
+<section class="tab on" id="t0">
+<p class="lead">Half of all field calls go to clinics that hold a quarter of the potential.</p>
+<p>That one mismatch, plus three others like it, explains a ₹31 cr gap to plan. Four field moves close it without adding a single rep.</p>
+<div class="grid g32">
+ <div class="card"><h3>Where calls go, against where the potential is</h3><p class="sub">Share of last quarter's calls and share of account potential, by clinic tier</p><div class="scroll"><div id="c_bfly"></div></div>
+ <div class="take"><b>Tier A and B hold 77% of potential and get 50% of calls.</b> Tier C and D get the other half and return 23%.</div></div>
+ <div class="card"><h3>Four moves, ranked by yearly impact</h3><p class="sub">Illustrative ₹ crore, first-year effect</p><div id="recs"></div></div>
+</div>
+<div class="grid g32">
+ <div class="card"><h3>From run-rate to plan, and past it</h3><p class="sub">FY net sales, ₹ crore. Dashed line is the ₹402 cr plan.</p><div class="scroll"><div id="c_wf0"></div></div>
+ <div class="take"><b>₹371 cr run-rate becomes ₹410 cr</b>, 2% above plan, with the same headcount.</div></div>
+ <div class="card"><h3>What sits behind this prototype</h3><p class="sub">Results from my own field analytics work in enterprise technology</p>
+  <div class="stat"><div class="n">95%</div><div class="t">Planning accuracy<small>Territory realignment and quota-setting automated, top-down and bottom-up</small></div></div>
+  <div class="stat"><div class="n">400+ hrs</div><div class="t">Released per cycle<small>93% of manual field reporting automated</small></div></div>
+  <div class="stat"><div class="n">6% QoQ</div><div class="t">Repeat revenue growth<small>Expansion signals surfaced six months ahead</small></div></div>
+  <div class="stat"><div class="n">3 hrs → 3 min</div><div class="t">Account scoring<small>CRM, enrichment, AI scoring and write-back</small></div></div>
+ </div>
+</div>
+</section>
+
+<section class="tab" id="t1">
+<p class="lead">Toxin is growing, filler is shrinking, and India is where volume is still being built.</p>
+<p>AbbVie's aesthetics franchise is the one portfolio where growth depends on field precision, not on a new molecule. That is the business case for this role.</p>
+<div class="grid g2">
+ <div class="card"><h3>AbbVie aesthetics, second quarter 2026</h3><p class="sub">Global net revenue, US$ million. Total $1,282m.</p>
+  <div class="mix"><div style="flex:728;background:#6b3fa0"><b>$728m</b>Botox Cosmetic</div><div style="flex:245;background:#b0507a"><b>$245m</b>Juvederm</div><div style="flex:309;background:#8a7a96"><b>$309m</b>Other</div></div>
+  <div class="src">"Other" is derived: total less the two reported brands.</div>
+  <div id="c_grow" style="margin-top:10px"></div>
+  <div class="take"><b>Juvederm fell 6.6%</b> while Botox Cosmetic grew 3.4%. Filler is the soft spot the field can move.</div>
+  <div class="src">Source: <a href="https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results" target="_blank" rel="noopener">AbbVie Q2 2026 results</a>, operational growth; portfolio growth per the <a href="https://www.nasdaq.com/articles/abbvie-q2-earnings-call-highlights" target="_blank" rel="noopener">earnings call summary</a>.</div></div>
+ <div class="card"><h3>Who holds the global injectables market</h3><p class="sub">Estimated revenue share range, %</p><div id="c_share"></div>
+  <div class="take"><b>The leader is defending.</b> Korean entrants compete on price, so share is kept through training and account depth.</div>
+  <div class="src">Source: <a href="https://www.marketresearchfuture.com/reports/facial-injectable-market-1527" target="_blank" rel="noopener">Market Research Future estimate</a>. Analyst estimates, not company-reported.</div></div>
+</div>
+<div class="grid g2">
+ <div class="card"><h3>India, in three numbers</h3><p class="sub">Analyst estimates differ widely, which is itself a planning input</p>
+  <div class="stat"><div class="n">$0.28bn</div><div class="t">India facial injectables, 2026<small><a href="https://www.fortunebusinessinsights.com/industry-reports/facial-injectables-market-100603" target="_blank" rel="noopener" style="color:var(--orchid)">Fortune Business Insights</a> projection</small></div></div>
+  <div class="stat"><div class="n">8.6–13.8%</div><div class="t">Forecast yearly growth<small>Low: <a href="https://www.futuremarketinsights.com/reports/facial-injectables-market" target="_blank" rel="noopener" style="color:var(--orchid)">Future Market Insights</a>. High: Market Research Future.</small></div></div>
+  <div class="stat"><div class="n">AMI</div><div class="t">Training is the launch engine<small>Juvederm VOLUX launched in India in 2022 with Allergan Medical Institute training (<a href="https://www.biospectrumindia.com/news/91/21732/allergan-aesthetics-strengthens-presence-in-medical-aesthetics-market-in-india.html" target="_blank" rel="noopener" style="color:var(--orchid)">BioSpectrum India</a>)</small></div></div>
+ </div>
+ <div class="card"><h3>What this means for sales analytics</h3><p class="sub">Why aesthetics needs its own field KPIs</p>
+  <div class="stat"><div class="n">Cash-pay</div><div class="t">No prescriptions to count<small>Clinics buy and stock product, so account orders replace prescription data as the demand signal</small></div></div>
+  <div class="stat"><div class="n">Injector</div><div class="t">Skill gates demand<small>A clinic orders what its injector is confident using; training comes before sales</small></div></div>
+  <div class="stat"><div class="n">Portfolio</div><div class="t">Breadth beats volume<small>AbbVie's AA Signature approach sells toxin, filler and biostimulator as one plan</small></div></div>
+ </div>
+</div>
+</section>
+
+<section class="tab" id="t2">
+<p class="lead">Four cities hold ₹15 cr of growth the field is not yet reaching.</p>
+<p>Sub-national view of 24 territories. Select a tile to see its numbers and the suggested action.</p>
+<div class="grid g32">
+ <div class="card"><h3>Territory map</h3><p class="sub">Tiles are placed roughly where the cities sit</p>
+  <div class="seg" id="mseg"><button data-m="att" class="on">Attainment vs target</button><button data-m="pen">Share of potential</button><button data-m="ab">A/B call share</button></div>
+  <div class="leg"><span><i style="background:var(--rose)"></i>Below benchmark</span><span><i style="background:var(--teal)"></i>At or above benchmark</span><span>Deeper colour is further from it</span></div>
+  <div id="c_map" style="max-width:520px"></div></div>
+ <div class="card" id="detail"></div>
+</div>
+<div class="card" style="margin-bottom:14px"><h3>Potential against penetration</h3><p class="sub">Each bubble is a territory. Size is current sales. Right and low is where to invest.</p><div class="scroll"><div id="c_quad"></div></div>
+ <div class="take"><b>Hyderabad, Pune, Gurgaon and Kolkata</b> are large markets below the 34% national average. Lifting them to average adds about ₹15 cr.</div></div>
+</section>
+
+<section class="tab" id="t3">
+<p class="lead">Training creates the customer. The ninety days after it decide whether they stay.</p>
+<p>Pull-through from clinic universe to multi-product account, and where it leaks.</p>
+<div class="card" style="margin-bottom:14px"><h3>The injector journey</h3><p class="sub">Clinics at each stage, with the conversion between stages</p><div class="scroll"><div id="c_fun"></div></div>
+ <div class="take"><b>Only 29% of ordering accounts buy more than one product.</b> That step is the largest single opportunity.</div></div>
+<div class="grid g2">
+ <div class="card"><h3>The ninety-day cliff</h3><p class="sub">% of trained injectors still ordering, by month since training</p><div id="c_coh"></div>
+  <div class="take"><b>Ordering drops about 14 points in month four</b> in every cohort. A follow-up call at day 75 is the fix to test.</div></div>
+ <div class="card"><h3>One product or two</h3><p class="sub">Width is number of accounts, height is yearly revenue per account</p><div id="c_mek"></div>
+  <div class="take"><b>A two-product account is worth 2.3 times</b> a toxin-only one. 410 accounts produce nearly as much as 1,010.</div></div>
+</div>
+</section>
+
+<section class="tab" id="t4">
+<p class="lead">Move the levers and watch the plan gap close.</p>
+<p>Each lever is a decision field leadership can make this quarter. Assumptions are shown under the chart.</p>
+<div class="grid g23">
+ <div class="card"><h3>Levers</h3><p class="sub">Drag to change</p>
+  <label class="sl">Calls moved from tier C/D to A/B <output id="o1"></output></label><input type="range" id="s1" min="0" max="40" value="20">
+  <label class="sl">Extra training seats a year <output id="o2"></output></label><input type="range" id="s2" min="0" max="300" step="10" value="150">
+  <label class="sl">Toxin-only accounts adding filler <output id="o3"></output></label><input type="range" id="s3" min="0" max="25" value="15">
+  <label class="sl">Lapsed accounts won back <output id="o4"></output></label><input type="range" id="s4" min="0" max="30" value="20">
+  <div class="outs"><div><div class="n" id="r1"></div><div class="t">Projected sales</div></div><div><div class="n" id="r2"></div><div class="t">Against plan</div></div><div><div class="n" id="r3"></div><div class="t">Growth on run-rate</div></div></div></div>
+ <div class="card"><h3>Sales bridge</h3><p class="sub">₹ crore. Dashed line is the ₹402 cr plan.</p><div class="scroll"><div id="c_wf1"></div></div>
+  <div class="src">Assumptions (illustrative): each 10% of calls moved adds ₹6.0 cr; each training seat adds ₹5 lakh; each toxin-only account adding filler adds ₹9 lakh in year one, across 1,010 accounts; each of 490 lapsed accounts won back adds ₹6 lakh.</div></div>
+</div>
+</section>
+
+<section class="tab" id="t5">
+<p class="lead">One tree, one definition per number.</p>
+<p>The KPI set I would agree with Commercial Excellence, Marketing and field leaders in the first month.</p>
+<div class="card" style="margin-bottom:14px"><h3>What drives net sales</h3><p class="sub">Illustrative current values. The right-hand column is what a rep controls week to week.</p><div class="scroll"><div id="c_tree" style="min-width:760px"></div></div></div>
+<div class="card" style="margin-bottom:14px"><h3>KPI library</h3><p class="sub">Now and target values are illustrative</p><div class="scroll"><div><table id="kpis"></table></div></div></div>
+<div class="grid g3 plan">
+ <div class="card"><h4>First 30 days: one version of the number</h4><ul><li>Agree KPI definitions with field and marketing</li><li>Map CRM, sales and training data; log quality gaps</li><li>Ride along with two regions</li></ul></div>
+ <div class="card"><h4>Days 31 to 60: the field pack</h4><ul><li>Territory scorecard live for every manager</li><li>Tier-based call plan review with regional heads</li><li>Vendor report cadence and quality gates set</li></ul></div>
+ <div class="card"><h4>Days 61 to 90: the first pilots</h4><ul><li>Day-75 follow-up test in two territories</li><li>Filler cross-sell target list by propensity score</li><li>Read-out with measured lift and next steps</li></ul></div>
+</div>
+</section>
+</div></main>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg',$=id=>document.getElementById(id);
+function s(t,a,p,x){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(x!=null)e.textContent=x;if(p)p.appendChild(e);return e}
+function svg(id,w,h){const o=$(id);o.innerHTML='';return s('svg',{viewBox:`0 0 ${w} ${h}`,width:'100%',role:'img'},o)}
+const V=n=>`var(--${n})`;
+/* tabs */
+const tabs=['The story','Market','Territories','Injector journey','Simulator','KPI library'];
+tabs.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;b.setAttribute('role','tab');b.setAttribute('aria-selected',i==0);b.onclick=()=>{document.querySelectorAll('.tab').forEach((x,j)=>x.classList.toggle('on',j==i));document.querySelectorAll('#nav button').forEach((x,j)=>x.setAttribute('aria-selected',j==i));window.scrollTo({top:0})};$('nav').appendChild(b)});
+/* tooltip */
+const tip=$('tip');document.addEventListener('mousemove',e=>{const t=e.target.closest&&e.target.closest('[data-tip]');if(t){tip.textContent=t.getAttribute('data-tip');tip.style.opacity=1;tip.style.left=Math.min(e.clientX+14,innerWidth-270)+'px';tip.style.top=(e.clientY+14)+'px'}else tip.style.opacity=0});
+
+/* butterfly */
+(function(){const d=[['Tier A','8% of clinics',22,46],['Tier B','22% of clinics',28,31],['Tier C','35% of clinics',30,16],['Tier D','35% of clinics',20,7]];
+const g=svg('c_bfly',640,236),cx=320,k=4.6;
+s('text',{x:cx-62,y:14,'text-anchor':'end',class:'b'},g,'Share of calls');s('text',{x:cx+62,y:14,class:'b'},g,'Share of potential');
+d.forEach((r,i)=>{const y=30+i*50,under=r[3]>r[2];
+s('rect',{x:cx-58-r[2]*k,y,width:r[2]*k,height:34,rx:8,style:`fill:${V('gold')}`,'data-tip':`${r[0]}: ${r[2]}% of calls`},g);
+s('rect',{x:cx+58,y,width:r[3]*k,height:34,rx:8,style:`fill:${V(under?'orchid':'mute')};opacity:${under?1:.55}`,'data-tip':`${r[0]}: ${r[3]}% of potential`},g);
+s('text',{x:cx,y:y+15,'text-anchor':'middle',class:'b'},g,r[0]);s('text',{x:cx,y:y+29,'text-anchor':'middle'},g,r[1]);
+s('text',{x:cx-64-r[2]*k,y:y+22,'text-anchor':'end',class:'b'},g,r[2]+'%');s('text',{x:cx+64+r[3]*k,y:y+22,class:'b'},g,r[3]+'%')})})();
+
+/* recommendations */
+const RECS=[['Sell filler into toxin-only accounts','15% of 1,010 toxin-only accounts add a filler, chosen by propensity score',13.6],['Re-point calls to tier A and B','Move 20% of tier C/D calls using a tier-based call plan',12.0],['Give training seats to high-potential clinics','150 extra seats a year, allocated by untapped potential',7.5],['Catch accounts before they lapse','Day-75 follow-up alert wins back 20% of lapsed accounts',5.9]];
+$('recs').innerHTML=RECS.map(r=>`<div class="rec"><b>${r[0]}</b><div class="imp">+₹${r[2].toFixed(1)} cr<small>a year</small></div><div class="m">${r[1]}</div><div class="bar"><i style="width:${r[2]/13.6*100}%"></i></div></div>`).join('');
+
+/* waterfall */
+function wf(id,v){const g=svg(id,640,270),lo=340,hi=Math.max(425,371+v.reduce((a,b)=>a+b,0)+12),Y=x=>236-(x-lo)/(hi-lo)*200,
+L=['Run-rate','Call mix','Training','Cross-sell','Win-back','Projected'],bw=64,gap=(640-40-6*bw)/5;let run=371;
+for(let t=lo;t<=hi;t+=20){s('line',{x1:34,x2:640,y1:Y(t),y2:Y(t),style:`stroke:${V('line')}`},g);s('text',{x:28,y:Y(t)+4,'text-anchor':'end'},g,t)}
+L.forEach((l,i)=>{const x=40+i*(bw+gap);let y0,y1,col,val;
+if(i==0){y0=Y(lo);y1=Y(371);col='mute';val='371'}else if(i==5){y0=Y(lo);y1=Y(run);col='orchid';val=run.toFixed(0)}
+else{y0=Y(run);run+=v[i-1];y1=Y(run);col='teal';val='+'+v[i-1].toFixed(1)}
+s('rect',{x,y:Math.min(y0,y1),width:bw,height:Math.max(2,Math.abs(y0-y1)),rx:6,style:`fill:${V(col)};opacity:${i==0?.6:1}`,'data-tip':`${l}: ₹${val} cr`},g);
+s('text',{x:x+bw/2,y:Math.min(y0,y1)-6,'text-anchor':'middle',class:'b'},g,val);s('text',{x:x+bw/2,y:256,'text-anchor':'middle'},g,l);
+if(i<5)s('line',{x1:x+bw,x2:x+bw+gap,y1:Y(run),y2:Y(run),style:`stroke:${V('mute')};stroke-dasharray:2 3`},g)});
+s('line',{x1:34,x2:640,y1:Y(402),y2:Y(402),style:`stroke:${V('rose')};stroke-width:1.5;stroke-dasharray:6 4`},g);s('text',{x:638,y:Y(402)-5,'text-anchor':'end',style:`fill:${V('rose')}`},g,'Plan 402');
+s('text',{x:34,y:268,style:'font-size:10.5px'},g,'Axis starts at 340')}
+wf('c_wf0',[12,7.5,13.6,5.9]);
+
+/* growth diverging */
+(function(){const d=[['Neuroscience',20,0],['Immunology',14.6,0],['Botox Cosmetic',3.4,1],['Aesthetics total',-0.9,1],['Oncology',-2.4,0],['Juvederm',-6.6,1]];
+const g=svg('c_grow',560,180),zx=250,k=11;s('line',{x1:zx,x2:zx,y1:4,y2:172,style:`stroke:${V('mute')}`},g);
+d.forEach((r,i)=>{const y=8+i*28,w=Math.abs(r[1])*k,pos=r[1]>=0;
+s('text',{x:118,y:y+14,'text-anchor':'end',class:r[2]?'b':''},g,r[0]);
+s('rect',{x:pos?zx:zx-w,y,width:w,height:18,rx:5,style:`fill:${V(r[2]?(pos?'teal':'rose'):'mute')};opacity:${r[2]?1:.45}`,'data-tip':`${r[0]}: ${pos?'+':''}${r[1]}% operational growth`},g);
+s('text',{x:pos?zx+w+6:zx-w-6,y:y+14,'text-anchor':pos?'start':'end',class:'b'},g,(pos?'+':'')+r[1]+'%')})})();
+
+/* share dumbbell */
+(function(){const d=[['AbbVie (Allergan Aesthetics)',26,30,1],['Galderma',14,17],['Merz Aesthetics',9,12],['Ipsen',5,7],['Hugel',4,6]];
+const g=svg('c_share',560,210),X=v=>190+v*11;for(let t=0;t<=30;t+=10){s('line',{x1:X(t),x2:X(t),y1:8,y2:182,style:`stroke:${V('line')}`},g);s('text',{x:X(t),y:200,'text-anchor':'middle'},g,t+'%')}
+d.forEach((r,i)=>{const y=26+i*36,c=V(r[3]?'orchid':'mute');s('text',{x:180,y:y+4,'text-anchor':'end',class:r[3]?'b':''},g,r[0]);
+s('line',{x1:X(r[1]),x2:X(r[2]),y1:y,y2:y,style:`stroke:${c};stroke-width:8;stroke-linecap:round;opacity:.35`},g);
+s('circle',{cx:X(r[1]),cy:y,r:6,style:`fill:${c}`,'data-tip':`${r[0]}: low estimate ${r[1]}%`},g);s('circle',{cx:X(r[2]),cy:y,r:6,style:`fill:${c}`,'data-tip':`${r[0]}: high estimate ${r[2]}%`},g);
+s('text',{x:X(r[2])+12,y:y+4,class:'b'},g,`${r[1]}–${r[2]}%`)})})();
+
+/* territories: name, region, col, row, potential, sales, target, A/B call share, trained injectors */
+const T=[['Chandigarh','North',3,0,30,11,12,52,70],['Gurgaon','North',2,1,62,19,24,44,96],['Delhi South','North',3,1,110,44,42,63,210],['Noida','North',4,1,40,10,14,41,58],['Jaipur','North',2,2,28,9,9,55,52],['Lucknow','North',4,2,24,6,8,43,38],['Patna','East',5,2,10,2,3,38,12],['Guwahati','East',6,2,9,2,3,36,10],['Ahmedabad','West',1,3,44,14,15,51,84],['Indore','West',2,3,16,5,5,54,30],['Kolkata','East',5,3,58,18,20,46,92],['Surat','West',1,4,20,5,7,40,28],['Nagpur','West',3,4,12,3,4,42,18],['Bhubaneswar','East',5,4,12,3,4,45,16],['Mumbai West','West',1,5,120,46,44,64,232],['Pune','West',2,5,60,15,21,39,74],['Hyderabad','South',3,5,98,27,36,42,128],['Vizag','South',4,5,12,3,4,41,15],['Mumbai South','West',1,6,105,43,40,66,205],['Goa','West',2,6,10,4,4,58,20],['Bengaluru','South',3,6,115,45,43,62,224],['Chennai','South',4,6,70,24,26,53,118],['Kochi','South',2,7,26,9,9,56,50],['Coimbatore','South',3,7,14,4,5,47,20]]
+.map(r=>({n:r[0],reg:r[1],c:r[2],r:r[3],pot:r[4],sales:r[5],tgt:r[6],ab:r[7],inj:r[8],att:r[5]/r[6]*100,pen:r[5]/r[4]*100}));
+const BM={att:100,pen:34,ab:50},ML={att:'Attainment',pen:'Share of potential',ab:'A/B call share'};let metric='att',sel=T.find(t=>t.n=='Hyderabad');
+function drawMap(){const g=svg('c_map',510,548),tw=78,th=62;
+T.forEach(t=>{const v=t[metric],d=v-BM[metric],x=(t.c-1)*84+4,y=t.r*68+2,op=Math.min(.95,.22+Math.abs(d)/(metric=='att'?32:22));
+const G=s('g',{tabindex:0,role:'button','aria-label':`${t.n}, ${ML[metric]} ${v.toFixed(0)}%`,style:'cursor:pointer','data-tip':`${t.n}: ${ML[metric]} ${v.toFixed(0)}% (benchmark ${BM[metric]}%)`},g);
+s('rect',{x,y,width:tw,height:th,rx:12,style:`fill:${V('card')}`},G);
+s('rect',{x,y,width:tw,height:th,rx:12,style:`fill:${V(d>=0?'teal':'rose')};fill-opacity:${op};stroke:${t==sel?V('ink'):'transparent'};stroke-width:2.5`},G);
+s('text',{x:x+tw/2,y:y+24,'text-anchor':'middle',class:'b',style:'font-size:10.5px'},G,t.n);s('text',{x:x+tw/2,y:y+46,'text-anchor':'middle',class:'big',style:'font-size:17px'},G,v.toFixed(0)+'%');
+G.onclick=()=>{sel=t;drawMap();drawDetail()};G.onkeydown=e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();G.onclick()}}})}
+function ring(v,max,col,txt){const r=30,c=2*Math.PI*r,f=Math.min(1,v/max);return `<svg viewBox="0 0 80 80" width="84" style="margin:0 auto"><circle cx="40" cy="40" r="${r}" fill="none" style="stroke:var(--line)" stroke-width="8"/><circle cx="40" cy="40" r="${r}" fill="none" style="stroke:var(--${col})" stroke-width="8" stroke-linecap="round" stroke-dasharray="${c*f} ${c}" transform="rotate(-90 40 40)"/><text x="40" y="45" text-anchor="middle" class="b" style="font-size:14px">${txt}</text></svg>`}
+function drawDetail(){const t=sel;let act,why;
+if(t.pot>=55&&t.pen<32){act='Invest: add A/B call capacity and training seats';why=`Large market at ${t.pen.toFixed(0)}% share of potential against a 34% average. Reaching average adds ₹${(t.pot*.34-t.sales).toFixed(1)} cr.`}
+else if(t.ab<45){act='Re-point the call plan';why=`Only ${t.ab}% of calls reach tier A and B clinics. Benchmark is 50% or more.`}
+else if(t.att>=100){act='Protect and copy';why='On or above plan with a healthy call mix. Use this call pattern as the benchmark for peers.'}
+else{act='Check lapsed accounts';why='Slightly under plan with a sound call mix. Look first at accounts that stopped ordering after training.'}
+$('detail').innerHTML=`<h3>${t.n}</h3><p class="sub">${t.reg} region, ${t.inj} trained injectors</p><div class="rings"><figure>${ring(t.att,120,t.att>=100?'teal':'rose',t.att.toFixed(0)+'%')}<figcaption>Attainment</figcaption></figure><figure>${ring(t.pen,60,t.pen>=34?'teal':'rose',t.pen.toFixed(0)+'%')}<figcaption>Share of potential</figcaption></figure><figure>${ring(t.ab,80,t.ab>=50?'teal':'rose',t.ab+'%')}<figcaption>A/B call share</figcaption></figure></div>
+<div class="stat"><div class="n">₹${t.sales} cr</div><div class="t">Sales<small>Target ₹${t.tgt} cr, potential ₹${t.pot} cr</small></div></div>
+<div class="take"><b>${act}.</b> ${why}</div>`}
+document.querySelectorAll('#mseg button').forEach(b=>b.onclick=()=>{metric=b.dataset.m;document.querySelectorAll('#mseg button').forEach(x=>x.classList.toggle('on',x==b));drawMap()});
+drawMap();drawDetail();
+
+/* quadrant */
+(function(){const g=svg('c_quad',720,380),X=v=>60+v/130*640,Y=v=>340-(v-15)/35*310,RC={North:'orchid',West:'gold',South:'teal',East:'rose'};
+s('rect',{x:X(50),y:Y(34),width:X(130)-X(50),height:Y(15)-Y(34),rx:10,style:`fill:${V('orchid')};opacity:.08`},g);
+[20,30,40,50].forEach(t=>{s('line',{x1:60,x2:700,y1:Y(t),y2:Y(t),style:`stroke:${V('line')}`},g);s('text',{x:52,y:Y(t)+4,'text-anchor':'end'},g,t+'%')});
+[0,25,50,75,100,125].forEach(t=>s('text',{x:X(t),y:358,'text-anchor':'middle'},g,t));
+s('text',{x:380,y:376,'text-anchor':'middle'},g,'Territory potential, ₹ crore');s('text',{x:64,y:14},g,'Share of potential captured');
+s('line',{x1:60,x2:700,y1:Y(34),y2:Y(34),style:`stroke:${V('mute')};stroke-dasharray:4 4`},g);s('text',{x:698,y:Y(34)-5,'text-anchor':'end'},g,'National average 34%');
+s('text',{x:X(128),y:Y(17),'text-anchor':'end',class:'b',style:`fill:${V('orchid')}`},g,'Invest here');
+T.slice().sort((a,b)=>b.sales-a.sales).forEach(t=>{const r=4+Math.sqrt(t.sales)*2.6;
+s('circle',{cx:X(t.pot),cy:Y(t.pen),r,style:`fill:${V(RC[t.reg])};fill-opacity:.7;stroke:${V('card')};stroke-width:1.5`,'data-tip':`${t.n} (${t.reg}): potential ₹${t.pot} cr, sales ₹${t.sales} cr, share ${t.pen.toFixed(0)}%`},g);
+if(t.pot>=55)s('text',{x:X(t.pot),y:Y(t.pen)-r-4,'text-anchor':'middle',class:'b'},g,t.n)});
+let lx=420;Object.keys(RC).forEach(k=>{s('circle',{cx:lx,cy:10,r:5,style:`fill:${V(RC[k])}`},g);s('text',{x:lx+9,y:14},g,k);lx+=68})})();
+
+/* ribbon funnel */
+(function(){const d=[['Clinic universe',6400],['Called on','3900'],['Injector trained',1850],['Ordering',1420],['Repeat in 90 days',930],['Two or more products',410]].map(r=>[r[0],+r[1]]);
+const g=svg('c_fun',760,270),bw=40,step=(760-60-bw)/5,k=170/6400,cy=128;
+d.forEach((r,i)=>{const x=30+i*step,h=Math.max(8,r[1]*k);
+if(i<5){const n=d[i+1],h2=Math.max(8,n[1]*k),x2=30+(i+1)*step,m=(x+bw+x2)/2;
+s('path',{d:`M${x+bw},${cy-h/2} C${m},${cy-h/2} ${m},${cy-h2/2} ${x2},${cy-h2/2} L${x2},${cy+h2/2} C${m},${cy+h2/2} ${m},${cy+h/2} ${x+bw},${cy+h/2}Z`,style:`fill:${V('orchid')};opacity:.16`},g);
+const cv=Math.round(n[1]/r[1]*100),low=cv<50;s('text',{x:m,y:cy+4,'text-anchor':'middle',class:'b',style:`fill:${V(low?'rose':'ink')}`},g,cv+'%')}
+s('rect',{x,y:cy-h/2,width:bw,height:h,rx:8,style:`fill:${V(i==5?'gold':'orchid')}`,'data-tip':`${r[0]}: ${r[1].toLocaleString()} clinics`},g);
+s('text',{x:x+bw/2,y:cy-h/2-8,'text-anchor':'middle',class:'big',style:'font-size:17px'},g,r[1].toLocaleString());
+s('text',{x:x+bw/2,y:cy+h/2+18,'text-anchor':'middle'},g,r[0])})})();
+
+/* cohort heatmap */
+(function(){const d=[['Mar',62,58,55,41,36,33],['Apr',64,60,54,40,35],['May',61,59,56,43],['Jun',66,61,57],['Jul',63,60],['Aug',65]];
+const g=svg('c_coh',520,250),cw=66,ch=32;for(let m=1;m<=6;m++)s('text',{x:78+(m-1)*cw+cw/2,y:14,'text-anchor':'middle'},g,'Month '+m);
+d.forEach((r,i)=>{s('text',{x:66,y:42+i*(ch+4),'text-anchor':'end',class:'b'},g,r[0]+' 2026');
+r.slice(1).forEach((v,j)=>{const x=78+j*cw,y=22+i*(ch+4);s('rect',{x:x+2,y,width:cw-4,height:ch,rx:8,style:`fill:${V('orchid')};fill-opacity:${(v-25)/45}`,'data-tip':`Trained ${r[0]}: ${v}% ordering in month ${j+1}`},g);
+s('text',{x:x+cw/2,y:y+21,'text-anchor':'middle',class:'b'},g,v+'%')})});
+const x=78+3*cw;s('line',{x1:x,x2:x,y1:18,y2:22+3*(ch+4)-2,style:`stroke:${V('rose')};stroke-width:2;stroke-dasharray:5 4`},g);s('text',{x:x+6,y:22+3*(ch+4)+14,style:`fill:${V('rose')}`,class:'b'},g,'Day 90')})();
+
+/* marimekko */
+(function(){const g=svg('c_mek',520,250),W=470,k=W/1420,hk=180/45,base=214;
+[['Toxin only',1010,19,192,'mute'],['Toxin and filler',410,43.7,179,'orchid']].reduce((x,r)=>{const w=r[1]*k-6,h=r[2]*hk;
+s('rect',{x,y:base-h,width:w,height:h,rx:10,style:`fill:${V(r[4])};opacity:${r[4]=='mute'?.5:1}`,'data-tip':`${r[0]}: ${r[1]} accounts at ₹${r[2]} lakh each, ₹${r[3]} cr in total`},g);
+s('text',{x:x+w/2,y:base-h-22,'text-anchor':'middle',class:'b'},g,r[0]);s('text',{x:x+w/2,y:base-h-7,'text-anchor':'middle'},g,`₹${r[2]} lakh per account`);
+s('text',{x:x+w/2,y:base+16,'text-anchor':'middle'},g,`${r[1].toLocaleString()} accounts`);s('text',{x:x+w/2,y:base+32,'text-anchor':'middle',class:'b'},g,`₹${r[3]} cr`);return x+w+6},25)})();
+
+/* simulator */
+function sim(){const a=+$('s1').value,b=+$('s2').value,c=+$('s3').value,d=+$('s4').value,v=[a*.6,b*.05,1010*c/100*.09,490*d/100*.06],tot=371+v.reduce((x,y)=>x+y,0);
+$('o1').textContent=a+'%';$('o2').textContent=b;$('o3').textContent=c+'%';$('o4').textContent=d+'%';
+$('r1').textContent='₹'+tot.toFixed(0)+' cr';const gp=tot-402;$('r2').textContent=(gp>=0?'+':'−')+'₹'+Math.abs(gp).toFixed(0)+' cr';$('r2').style.color=`var(--${gp>=0?'teal':'rose'})`;$('r3').textContent='+'+((tot/371-1)*100).toFixed(1)+'%';wf('c_wf1',v)}
+['s1','s2','s3','s4'].forEach(i=>$(i).oninput=sim);sim();
+
+/* KPI tree */
+(function(){const g=svg('c_tree',900,330);function node(x,y,w,t,v,c){s('rect',{x,y,width:w,height:44,rx:10,style:`fill:${V(c||'card')};stroke:${V('line')}`},g);
+s('text',{x:x+10,y:y+18,style:c?'fill:#fff':''},g,t);s('text',{x:x+10,y:y+35,class:'b',style:c?'fill:#fff':''},g,v)}
+function link(x1,y1,x2,y2){const m=(x1+x2)/2;s('path',{d:`M${x1},${y1} C${m},${y1} ${m},${y2} ${x2},${y2}`,fill:'none',style:`stroke:${V('orchid')};opacity:.45;stroke-width:1.5`},g)}
+const L3a=[['Universe coverage','61% called on'],['Trained injectors','1,850'],['Activation in 60 days','77% of trained'],['Lapse rate','35% of ordering']],L3b=[['Order frequency','5.2 a year'],['Portfolio breadth','29% two-product'],['Share of potential','34%']];
+const R=['Reach of tier A/B clinics','Training seats to high potential','First-order follow-up','Day-75 follow-up done','Calls against plan, by tier','Cross-sell conversations'];
+link(160,165,200,84);link(160,165,200,246);node(10,143,150,'Net sales','₹371 cr','#6b3fa0');
+node(200,62,180,'Ordering accounts','1,420');node(200,224,180,'Revenue per account','₹26 lakh');
+L3a.forEach((n,i)=>{const y=4+i*46;link(380,84,420,y+22);node(420,y,190,n[0],n[1])});
+L3b.forEach((n,i)=>{const y=192+i*46;link(380,246,420,y+22);node(420,y,190,n[0],n[1])});
+s('text',{x:660,y:16,class:'b'},g,'What the rep controls');
+R.forEach((t,i)=>{const y=28+i*49;s('rect',{x:660,y,width:230,height:36,rx:18,style:`fill:${V('soft')};stroke:${V('line')}`},g);s('text',{x:676,y:y+23,class:'b'},g,t);link(610,[26,72,118,164,214,260][i],660,y+18)})})();
+
+/* KPI table */
+const K=[['A/B call share','Are calls going where the potential is','Calls to tier A and B ÷ all calls','CRM call records','Monthly','50%','60%'],['Call plan attainment','Is the agreed frequency being delivered','Actual ÷ planned calls, by tier','CRM call records','Monthly','82%','95%'],['Universe coverage','How much of the market the field touches','Clinics called on ÷ clinic universe','CRM, clinic master','Quarterly','61%','70%'],['Training to first order','How fast training turns into demand','Median days, training to first order','Training records, sales','Monthly','38 days','25 days'],['90-day repeat rate','Do new accounts stick','Accounts reordering in 90 days ÷ new accounts','Sales','Monthly','65%','75%'],['Two-product share','Depth of portfolio adoption','Accounts buying toxin and filler ÷ ordering accounts','Sales','Monthly','29%','38%'],['Share of potential','Penetration by territory','Sales ÷ estimated potential','Sales, market data','Quarterly','34%','37%'],['Territory attainment spread','Are targets set fairly','Share of territories within 90–110% of target','Sales, targets','Quarterly','46%','70%'],['Call data quality','Can the numbers be trusted','Calls with a matched account ID ÷ all calls','CRM, data governance','Weekly','91%','99%']];
+$('kpis').innerHTML='<tr><th>KPI</th><th>Question it answers</th><th>How it is calculated</th><th>Data</th><th>Cadence</th><th class="n">Now</th><th class="n">Target</th></tr>'+K.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td class="n">${r[5]}</td><td class="n"><b>${r[6]}</b></td></tr>`).join('');
+</script></body></html>
